@@ -219,11 +219,19 @@ if page == "🏠 Analyzer":
             placeholder="Example: The movie was amazing, the story was beautiful...",
             height=170,
         )
-        b1, b2 = st.columns([1, 1])
-        with b1:
-            analyze_clicked = st.button("🚀 Analyze Sentiment")
-        with b2:
-            st.button("🧹 Clear", on_click=clear_review_text)
+        analyze_clicked = st.button(
+            "🚀 Analyze Sentiment",
+            use_container_width=True,
+            type="primary"
+        )
+
+        st.markdown("<div style='height:8px'></div>", unsafe_allow_html=True)
+
+        st.button(
+            "Clear Review",
+            on_click=clear_review_text,
+            type="secondary"
+        )
 
     with meta_col:
         live_stats = get_review_stats(st.session_state.review_input)
@@ -402,13 +410,18 @@ elif page == "📜 History":
     else:
         history_df = pd.DataFrame(st.session_state.history)
 
-        top1, top2, top3 = st.columns([1, 1, 2])
-        with top1:
-            sort_by = st.selectbox("Sort by", ["Time (newest)", "Confidence (highest)"])
-        with top2:
-            if st.button("🗑️ Clear History"):
-                st.session_state.history = []
-                st.rerun()
+        sort_by = st.selectbox(
+            "Sort by",
+            ["Time (newest)", "Confidence (highest)"],
+            width="stretch"
+        )
+        st.write("")
+        if st.button("🗑️ Clear History"):
+            st.session_state.history = []
+            st.rerun()
+
+        st.write("")
+
 
         display_df = history_df.copy()
         if sort_by == "Time (newest)":
@@ -422,7 +435,7 @@ elif page == "📜 History":
             emoji = "😊" if row["Sentiment"] == "Positive" else "😞"
             preview = (row["Review"][:120] + "...") if len(row["Review"]) > 120 else row["Review"]
 
-            hc1, hc2 = st.columns([5, 1])
+            hc1, hc2 = st.columns([12, 1], vertical_alignment="center")
             with hc1:
                 st.markdown(
                     f"""
@@ -436,7 +449,8 @@ elif page == "📜 History":
                     unsafe_allow_html=True,
                 )
             with hc2:
-                if st.button("Delete", key=f"del_{original_idx}"):
+                st.write("")   
+                if st.button("🗑️", key=f"del_{original_idx}", help="Delete Review"):
                     st.session_state.history.pop(original_idx)
                     st.rerun()
 
