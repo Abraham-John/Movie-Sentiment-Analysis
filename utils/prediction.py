@@ -20,8 +20,8 @@ from tensorflow.keras.preprocessing.sequence import pad_sequences
 from utils.preprocessing import encode_review
 
 MODEL_CANDIDATE_PATHS = [
-    os.path.join("models", "simple_rnn_imdb.h5"),
-    "simple_rnn_imdb.h5",
+    os.path.join("models", "lstm_imdb.h5"),
+    "lstm_imdb.h5",
 ]
 
 
@@ -44,7 +44,7 @@ def load_model() -> tf.keras.Model:
             return tf.keras.models.load_model(path)
 
     raise FileNotFoundError(
-        "Could not find 'simple_rnn_imdb.h5'. Place it in ./models/ or the "
+        "Could not find 'lstm_imdb.h5'. Place it in ./models/ or the "
         "project root."
     )
 
