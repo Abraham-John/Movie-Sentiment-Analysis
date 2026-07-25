@@ -156,7 +156,7 @@ with st.sidebar:
 
     with st.expander("🧠 Model Information"):
         st.markdown(
-            "- **Architecture:** Simple RNN / LSTM\n"
+            "- **Architecture:** LSTM Neural Network\n"
             "- **Vocabulary size:** 10,000 words\n"
             "- **Sequence length:** 500 tokens\n"
             "- **Output:** Binary sentiment probability"
